@@ -1,6 +1,6 @@
 /*!
- * ws: a node.js websocket client
- * Copyright(c) 2011 Einar Otto Stangvik <einaros@gmail.com>
+ * bufferutil: WebSocket buffer utils
+ * Copyright(c) 2015 Einar Otto Stangvik <einaros@gmail.com>
  * MIT Licensed
  */
 
