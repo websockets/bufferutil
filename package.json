@@ -1,0 +1,26 @@
+{
+  "name": "bufferutil",
+  "version": "1.0.0",
+  "description": "WebSocket buffer utils",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/websockets/bufferutil"
+  },
+  "keywords": [
+    "bufferutil"
+  ],
+  "author": "Einar Otto Stangvik <einaros@gmail.com> (http://2x.io)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/websockets/bufferutil/issues"
+  },
+  "homepage": "https://github.com/websockets/bufferutil",
+  "dependencies": {
+    "bindings": "1.2.1",
+    "nan": "1.6.1"
+  }
+}
