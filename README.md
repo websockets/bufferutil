@@ -1,5 +1,7 @@
 # bufferutil
 
+[![Build Status](https://travis-ci.org/websockets/bufferutil.svg?branch=master)](https://travis-ci.org/websockets/bufferutil)
+
 Buffer utils is one of the modules that makes `ws` fast. It's optimized for
 certain buffer based operations such as merging buffers, generating WebSocket
 masks and unmasking.
