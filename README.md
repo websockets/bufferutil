@@ -60,4 +60,4 @@ bu.unmask(buffer, mask);
 
 ## License
 
-MIT
+[MIT](LICENSE)
