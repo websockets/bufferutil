@@ -65,21 +65,42 @@ protected:
   {
     Nan::HandleScope scope;
     Local<Object> buffer_obj = info[0]->ToObject();
-    size_t length = Buffer::Length(buffer_obj);
     Local<Object> mask_obj = info[1]->ToObject();
-    unsigned int *mask = (unsigned int*)Buffer::Data(mask_obj);
-    unsigned int* from = (unsigned int*)Buffer::Data(buffer_obj);
-    size_t len32 = length / 4;
-    unsigned int i;
-    for (i = 0; i < len32; ++i) *(from + i) ^= *mask;
-    from += i;
-    switch (length % 4) {
-      case 3: *((unsigned char*)from+2) = *((unsigned char*)from+2) ^ ((unsigned char*)mask)[2];
-      case 2: *((unsigned char*)from+1) = *((unsigned char*)from+1) ^ ((unsigned char*)mask)[1];
-      case 1: *((unsigned char*)from  ) = *((unsigned char*)from  ) ^ ((unsigned char*)mask)[0];
-      case 0:;
-    }
+
+    char* mask = Buffer::Data(mask_obj);
+    char* from = Buffer::Data(buffer_obj);
+    size_t length = Buffer::Length(buffer_obj);
+
     info.GetReturnValue().Set(Nan::True());
+
+    /* Alignment preamble */
+    size_t index;
+    for (index = 0; index < length && (reinterpret_cast<size_t>(from) & 0x07); ++index)
+        *from++ ^= mask[index % 4];
+    length -= index;
+    if (!length)
+        return;
+
+    /* Realign mask and convert to 64 bit */
+    char maskAlignedArray[8];
+    for (size_t i = 0; i < 8; i++, index++)
+        maskAlignedArray[i] = mask[index % 4];
+
+    /* Apply 64 bit mask in 8 byte chunks */
+    size_t loop = length / 8;
+    uint64_t* pSource8;
+    uint64_t* pMask8 = reinterpret_cast<uint64_t*>(maskAlignedArray);
+    while (loop--) {
+        pSource8 = reinterpret_cast<uint64_t*>(from);
+        *pSource8 ^= *pMask8;
+        from += 8;
+    }
+
+    /* Apply mask to remaining data */
+    char* pmaskAlignedArray = maskAlignedArray;
+    length &= 0x7;
+    while (length--)
+        *from++ ^= *pmaskAlignedArray++;
   }
 
   static NAN_METHOD(Mask)
@@ -87,24 +108,47 @@ protected:
     Nan::HandleScope scope;
     Local<Object> buffer_obj = info[0]->ToObject();
     Local<Object> mask_obj = info[1]->ToObject();
-    unsigned int *mask = (unsigned int*)Buffer::Data(mask_obj);
     Local<Object> output_obj = info[2]->ToObject();
-    unsigned int dataOffset = info[3]->Int32Value();
-    unsigned int length = info[4]->Int32Value();
-    unsigned int* to = (unsigned int*)(Buffer::Data(output_obj) + dataOffset);
-    unsigned int* from = (unsigned int*)Buffer::Data(buffer_obj);
-    unsigned int len32 = length / 4;
-    unsigned int i;
-    for (i = 0; i < len32; ++i) *(to + i) = *(from + i) ^ *mask;
-    to += i;
-    from += i;
-    switch (length % 4) {
-      case 3: *((unsigned char*)to+2) = *((unsigned char*)from+2) ^ *((unsigned char*)mask+2);
-      case 2: *((unsigned char*)to+1) = *((unsigned char*)from+1) ^ *((unsigned char*)mask+1);
-      case 1: *((unsigned char*)to  ) = *((unsigned char*)from  ) ^ *((unsigned char*)mask);
-      case 0:;
-    }
+    size_t dataOffset = info[3]->Int32Value();
+    size_t length = info[4]->Int32Value();
+
+    char* mask = Buffer::Data(mask_obj);
+    char* from = Buffer::Data(buffer_obj);
+    char* to = Buffer::Data(output_obj) + dataOffset;
+
     info.GetReturnValue().Set(Nan::True());
+
+    /* Alignment preamble */
+    size_t index;
+    for (index = 0; index < length && (reinterpret_cast<size_t>(from) & 0x07); ++index)
+        *to++ ^= mask[index % 4];
+    length -= index;
+    if (!length)
+        return;
+
+    /* Realign mask and convert to 64 bit */
+    char maskAlignedArray[8];
+    for (size_t i = 0; i < 8; i++, index++)
+        maskAlignedArray[i] = mask[index % 4];
+
+    /* Apply 64 bit mask in 8 byte chunks */
+    size_t loop = length / 8;
+    uint64_t* pFrom8;
+    uint64_t* pTo8;
+    uint64_t* pMask8 = reinterpret_cast<uint64_t*>(maskAlignedArray);
+    while (loop--) {
+        pFrom8 = reinterpret_cast<uint64_t*>(from);
+        pTo8 = reinterpret_cast<uint64_t*>(to);
+        *pTo8 = *pFrom8 ^ *pMask8;
+        from += 8;
+        to += 8;
+    }
+
+    /* Apply mask to remaining data */
+    char* pmaskAlignedArray = maskAlignedArray;
+    length &= 0x7;
+    while (length--)
+        *to++ = *from++ ^ *pmaskAlignedArray++;
   }
 };
 
