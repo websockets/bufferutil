@@ -3,12 +3,20 @@ node_js:
   - "6"
   - "4"
   - "0.12"
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - gcc-4.9
-      - g++-4.9
-before_install:
-  - export CC="gcc-4.9" CXX="g++-4.9"
+os:
+  - osx
+matrix:
+  fast_finish: true
+  include:
+    - node_js: "6"
+      os: linux
+      sudo: required
+      dist: trusty
+    - node_js: "4"
+      os: linux
+      sudo: required
+      dist: trusty
+    - node_js: "0.12"
+      os: linux
+      sudo: required
+      dist: trusty
