@@ -57,7 +57,3 @@ Remove a WebSocket mask on the given data.;w
 ```js
 bu.unmask(buffer, mask);
 ```
-
-## License
-
-MIT
