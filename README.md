@@ -1,6 +1,7 @@
 # bufferutil
 
-[![Build Status](https://travis-ci.org/websockets/bufferutil.svg?branch=master)](https://travis-ci.org/websockets/bufferutil)
+[![Linux/macOS Build](https://travis-ci.org/websockets/bufferutil.svg?branch=master)](https://travis-ci.org/websockets/bufferutil)
+[![Windows Build](https://ci.appveyor.com/api/projects/status/github/websockets/bufferutil?branch=master&svg=true)](https://ci.appveyor.com/project/lpinca/bufferutil)
 
 Buffer utils is one of the modules that makes `ws` fast. It's optimized for
 certain buffer based operations such as merging buffers, generating WebSocket
@@ -10,7 +11,7 @@ As the module consists of binary components, it should be used an
 `optionalDependency` so when installation fails, it doesn't halt the
 installation of your module. There are fallback files available in this
 repository. See `fallback.js` for the suggest fallback implementation if
-installation fails. 
+installation fails.
 
 ## Installation
 
