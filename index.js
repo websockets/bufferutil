@@ -1,7 +1,7 @@
 'use strict';
 
 try {
-  module.exports = require('bindings')('bufferutil');
+  module.exports = require('./build/Release/bufferutil');
 } catch (e) {
   module.exports = require('./fallback');
 }

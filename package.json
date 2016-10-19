@@ -20,7 +20,6 @@
   },
   "homepage": "https://github.com/websockets/bufferutil",
   "dependencies": {
-    "bindings": "1.2.x",
     "nan": "2.4.x"
   }
 }
