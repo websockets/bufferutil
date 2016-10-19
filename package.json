@@ -4,7 +4,7 @@
   "description": "WebSocket buffer utils",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Only testing builds, test have to be extraced from `ws`\" && exit 0"
+    "test": "echo \"Only testing builds, tests have to be extraced from ws\""
   },
   "repository": {
     "type": "git",
