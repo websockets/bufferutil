@@ -1,0 +1,19 @@
+environment:
+  matrix:
+    - nodejs_version: "6"
+    - nodejs_version: "4"
+    - nodejs_version: "0.12"
+platform:
+  - x86
+  - x64
+matrix:
+  fast_finish: true
+install:
+  - ps: Install-Product node $env:nodejs_version $env:platform
+  - if %nodejs_version% equ 0.12 npm -g install npm@latest
+  - npm install
+test_script:
+  - node --version
+  - npm --version
+  - npm test
+build: off
