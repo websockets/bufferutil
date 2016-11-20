@@ -121,7 +121,7 @@ protected:
     /* Alignment preamble */
     size_t index;
     for (index = 0; index < length && (reinterpret_cast<size_t>(from) & 0x07); index++)
-        *to++ ^= mask[index % 4];
+        *to++ = *from++ ^ mask[index % 4];
     length -= index;
     if (!length)
         return;
