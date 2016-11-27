@@ -1,5 +1,6 @@
 # bufferutil
 
+[![Version npm](https://img.shields.io/npm/v/bufferutil.svg)](https://www.npmjs.com/package/bufferutil)
 [![Linux/macOS Build](https://travis-ci.org/websockets/bufferutil.svg?branch=master)](https://travis-ci.org/websockets/bufferutil)
 [![Windows Build](https://ci.appveyor.com/api/projects/status/github/websockets/bufferutil?branch=master&svg=true)](https://ci.appveyor.com/project/lpinca/bufferutil)
 
