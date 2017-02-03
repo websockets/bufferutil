@@ -44,7 +44,7 @@ const target = Buffer.allocUnsafe(10);
 bufferUtil.merge(target, [crypto.randomBytes(5), crypto.randomBytes(5)]);
 ```
 
-#### `bufferUtil.mask(source, mask, output, offset, length)`
+### `bufferUtil.mask(source, mask, output, offset, length)`
 
 Masks a buffer using the given masking-key as specified by the WebSocket
 protocol.
@@ -71,7 +71,7 @@ const mask = crypto.randomBytes(4);
 bufferUtil.mask(source, mask, source, 0, source.length);
 ```
 
-#### `bufferUtil.unmask(buffer, mask)`
+### `bufferUtil.unmask(buffer, mask)`
 
 Unmasks a buffer using the given masking-key as specified by the WebSocket
 protocol.
