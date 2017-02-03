@@ -4,59 +4,95 @@
 [![Linux/macOS Build](https://travis-ci.org/websockets/bufferutil.svg?branch=master)](https://travis-ci.org/websockets/bufferutil)
 [![Windows Build](https://ci.appveyor.com/api/projects/status/github/websockets/bufferutil?branch=master&svg=true)](https://ci.appveyor.com/project/lpinca/bufferutil)
 
-Buffer utils is one of the modules that makes `ws` fast. It's optimized for
-certain buffer based operations such as merging buffers, generating WebSocket
-masks and unmasking.
-
-As the module consists of binary components, it should be used an
-`optionalDependency` so when installation fails, it doesn't halt the
-installation of your module. There are fallback files available in this
-repository. See `fallback.js` for the suggest fallback implementation if
-installation fails.
+`bufferutil` is what makes `ws` fast. It provides some utilities to efficiently
+perform some operations such as masking and unmasking the data payload of
+WebSocket frames.
 
 ## Installation
 
 ```
-npm install bufferutil
+npm install bufferutil --save-optional
 ```
+
+The `--save-optional` flag tells npm to save the package in your package.json
+under the [`optionalDependencies`](https://docs.npmjs.com/files/package.json#optionaldependencies)
+key.
 
 ## API
 
-In all examples we assume that you've already required the BufferUtil as
-followed:
+The module exports 3 different functions.
+
+### `bufferUtil.merge(target, list)`
+
+Merges an array of buffers into a target buffer.
+
+#### Arguments
+
+- `target` - The target buffer.
+- `list` - An array containing the `Buffer` instances to merge.
+
+#### Example
 
 ```js
 'use strict';
 
-var bu = require('bufferutil').BufferUtil;
+const bufferUtil = require('bufferutil');
+const crypto = require('crypto');
+
+const target = Buffer.allocUnsafe(10);
+
+bufferUtil.merge(target, [crypto.randomBytes(5), crypto.randomBytes(5)]);
 ```
 
-The module exposes 3 different functions:
+#### `bufferUtil.mask(source, mask, output, offset, length)`
 
-#### merge
+Masks a buffer using the given masking-key as specified by the WebSocket
+protocol.
 
-Merge multiple buffers in the first supplied buffer argument:
+#### Arguments
+
+- `source` - The buffer to mask.
+- `mask` - A buffer representing the masking-key.
+- `output` - The buffer where to store the result.
+- `offset` - The offset at which to start writing.
+- `length` - The number of bytes to mask.
+
+#### Example
 
 ```js
-bu.merge(buffer, [buffer1, buffer2]);
+'use strict';
+
+const bufferUtil = require('bufferutil');
+const crypto = require('crypto');
+
+const source = crypto.randomBytes(10);
+const mask = crypto.randomBytes(4);
+
+bufferUtil.mask(source, mask, source, 0, source.length);
 ```
 
-This merges buffer1 and buffer2 which are in an array into buffer.
+#### `bufferUtil.unmask(buffer, mask)`
 
-#### mask
+Unmasks a buffer using the given masking-key as specified by the WebSocket
+protocol.
 
-Apply a WebSocket mask on the given data.
+#### Arguments
 
-```js
-bu.mask(buffer, mask);
-```
+- `buffer` - The buffer to unmask.
+- `mask` - A buffer representing the masking-key.
 
-#### unmask
-
-Remove a WebSocket mask on the given data.;w
+#### Example
 
 ```js
-bu.unmask(buffer, mask);
+'use strict';
+
+const bufferUtil = require('bufferutil');
+const crypto = require('crypto');
+
+const buffer = crypto.randomBytes(10);
+const mask = crypto.randomBytes(4);
+
+bufferUtil.unmask(buffer, mask);
 ```
 
 ## License
