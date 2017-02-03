@@ -3,7 +3,6 @@ node_js:
   - "7"
   - "6"
   - "4"
-  - "0.12"
 os:
   - osx
 matrix:
@@ -18,10 +17,6 @@ matrix:
       sudo: false
       dist: trusty
     - node_js: "4"
-      os: linux
-      sudo: false
-      dist: trusty
-    - node_js: "0.12"
       os: linux
       sudo: false
       dist: trusty
