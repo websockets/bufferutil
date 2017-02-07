@@ -4,7 +4,8 @@
   "description": "WebSocket buffer utils",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Only testing builds, tests have to be extraced from ws\""
+    "install": "prebuild-install || node-gyp rebuild",
+    "test": "echo \"Only testing builds, tests have to be extraced from ws\" && prebuild-ci"
   },
   "repository": {
     "type": "git",
@@ -21,6 +22,11 @@
   "homepage": "https://github.com/websockets/bufferutil",
   "dependencies": {
     "bindings": "~1.2.1",
-    "nan": "~2.5.0"
+    "nan": "~2.5.0",
+    "prebuild-install": "~2.1.0"
+  },
+  "devDependencies": {
+    "prebuild": "~6.0.2",
+    "prebuild-ci": "~2.0.0"
   }
 }

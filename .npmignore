@@ -1,3 +1,4 @@
+prebuilds/
 build/
 appveyor.yml
 .*

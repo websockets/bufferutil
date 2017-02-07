@@ -1,3 +1,4 @@
+node_modules/
+prebuilds/
+build/
 npm-debug.log
-node_modules
-build
