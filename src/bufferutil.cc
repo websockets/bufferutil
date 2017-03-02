@@ -6,20 +6,6 @@
 
 #include <nan.h>
 
-NAN_METHOD(merge) {
-  char* target = node::Buffer::Data(info[0]);
-  v8::Local<v8::Array> list = info[1].As<v8::Array>();
-  uint32_t size = list->Length();
-  size_t offset = 0;
-
-  for (uint32_t i = 0; i < size; i++) {
-    v8::Local<v8::Value> source = list->Get(i);
-    size_t length = node::Buffer::Length(source);
-    memcpy(target + offset, node::Buffer::Data(source), length);
-    offset += length;
-  }
-}
-
 NAN_METHOD(mask) {
   char* from = node::Buffer::Data(info[0]);
   char* mask = node::Buffer::Data(info[1]);
@@ -120,7 +106,6 @@ NAN_METHOD(unmask) {
 }
 
 NAN_MODULE_INIT(init) {
-  NAN_EXPORT(target, merge);
   NAN_EXPORT(target, mask);
   NAN_EXPORT(target, unmask);
 }

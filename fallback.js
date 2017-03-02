@@ -7,22 +7,6 @@
 'use strict';
 
 /**
- * Merges an array of buffers into a target buffer.
- *
- * @param {Buffer} target The target buffer
- * @param {Buffer[]} buffers The array of buffers to merge
- * @public
- */
-const merge = (target, buffers) => {
-  var offset = 0;
-  for (var i = 0; i < buffers.length; i++) {
-    const buf = buffers[i];
-    buf.copy(target, offset);
-    offset += buf.length;
-  }
-};
-
-/**
  * Masks a buffer using the given mask.
  *
  * @param {Buffer} source The buffer to mask
@@ -53,4 +37,4 @@ const unmask = (buffer, mask) => {
   }
 };
 
-module.exports = { merge, mask, unmask };
+module.exports = { mask, unmask };

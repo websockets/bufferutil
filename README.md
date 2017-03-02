@@ -20,29 +20,7 @@ key.
 
 ## API
 
-The module exports 3 different functions.
-
-### `bufferUtil.merge(target, list)`
-
-Merges an array of buffers into a target buffer.
-
-#### Arguments
-
-- `target` - The target buffer.
-- `list` - An array containing the `Buffer` instances to merge.
-
-#### Example
-
-```js
-'use strict';
-
-const bufferUtil = require('bufferutil');
-const crypto = require('crypto');
-
-const target = Buffer.allocUnsafe(10);
-
-bufferUtil.merge(target, [crypto.randomBytes(5), crypto.randomBytes(5)]);
-```
+The module exports two functions.
 
 ### `bufferUtil.mask(source, mask, output, offset, length)`
 
