@@ -1,4 +1,5 @@
 prebuilds/
 build/
 appveyor.yml
+test.js
 .*

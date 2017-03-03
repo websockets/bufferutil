@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "install": "prebuild-install || node-gyp rebuild",
-    "test": "echo \"Only testing builds, tests have to be extraced from ws\" && prebuild-ci"
+    "test": "mocha && prebuild-ci"
   },
   "repository": {
     "type": "git",
@@ -26,6 +26,7 @@
     "prebuild-install": "~2.1.0"
   },
   "devDependencies": {
+    "mocha": "~3.2.0",
     "prebuild": "~6.1.0",
     "prebuild-ci": "~2.2.0"
   }
