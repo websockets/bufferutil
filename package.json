@@ -26,7 +26,7 @@
     "prebuild-install": "~2.1.0"
   },
   "devDependencies": {
-    "prebuild": "~6.0.2",
+    "prebuild": "~6.1.0",
     "prebuild-ci": "~2.2.0"
   }
 }
