@@ -4,13 +4,14 @@
  * MIT Licensed
  */
 
-#include <nan.h>
+#include <napi.h>
 
-NAN_METHOD(mask) {
-  char* from = node::Buffer::Data(info[0]);
-  char* mask = node::Buffer::Data(info[1]);
-  char* to = node::Buffer::Data(info[2]) + info[3]->Int32Value();
-  size_t length = info[4]->Int32Value();
+static void mask(const Napi::CallbackInfo& info) {
+  char* from = info[0].As<Napi::Buffer<char>>().Data();
+  char* mask = info[1].As<Napi::Buffer<char>>().Data();
+  char* to = info[2].As<Napi::Buffer<char>>().Data()
+           + info[3].As<Napi::Number>().Int32Value();
+  size_t length = info[4].As<Napi::Number>().Int32Value();
   size_t index = 0;
 
   //
@@ -57,10 +58,10 @@ NAN_METHOD(mask) {
   }
 }
 
-NAN_METHOD(unmask) {
-  char* from = node::Buffer::Data(info[0]);
-  size_t length = node::Buffer::Length(info[0]);
-  char* mask = node::Buffer::Data(info[1]);
+static void unmask(const Napi::CallbackInfo& info) {
+  char* from = info[0].As<Napi::Buffer<char>>().Data();
+  size_t length = info[0].As<Napi::Buffer<char>>().Length();
+  char* mask = info[1].As<Napi::Buffer<char>>().Data();
   size_t index = 0;
 
   //
@@ -105,9 +106,10 @@ NAN_METHOD(unmask) {
   }
 }
 
-NAN_MODULE_INIT(init) {
-  NAN_EXPORT(target, mask);
-  NAN_EXPORT(target, unmask);
+static Napi::Object init(Napi::Env env, Napi::Object exports) {
+  exports.Set("mask", Napi::Function::New(env, &mask));
+  exports.Set("unmask", Napi::Function::New(env, &unmask));
+  return exports;
 }
 
-NODE_MODULE(bufferutil, init)
+NODE_API_MODULE(bufferutil, init)
