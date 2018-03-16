@@ -22,7 +22,7 @@
   "homepage": "https://github.com/websockets/bufferutil",
   "dependencies": {
     "bindings": "~1.3.0",
-    "nan": "~2.9.1",
+    "nan": "~2.10.0",
     "prebuild-install": "~2.5.0"
   },
   "devDependencies": {
