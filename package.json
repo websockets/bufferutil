@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "mocha": "~5.1.0",
-    "prebuild": "~7.5.0",
+    "prebuild": "~7.6.0",
     "prebuild-ci": "~2.2.0"
   }
 }
