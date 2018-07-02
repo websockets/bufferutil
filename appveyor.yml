@@ -1,3 +1,5 @@
+build: off
+configuration: Release
 environment:
   matrix:
     - nodejs_version: "10"
@@ -15,4 +17,17 @@ test_script:
   - node --version
   - npm --version
   - npm test
-build: off
+after_test:
+  - ps: If ($env:nodejs_version -eq "10") { npm run prebuild }
+  - ps: $env:ARTIFACT_NAME_PREFIX = if (Test-Path env:APPVEYOR_REPO_TAG_NAME) { $env:APPVEYOR_REPO_TAG_NAME } else { 'latest' }
+artifacts:
+  - path: prebuilds
+    name: $(ARTIFACT_NAME_PREFIX)-win-$(PLATFORM)
+deploy:
+  - provider: GitHub
+    artifact: /.*\.zip/
+    auth_token:
+      secure: CkWRNlzH+wmCa3+TRydWfvmSH7tevR81aAypEhXTR9ka5q0Ja8lAIPDwtPb+Ux9l
+    on:
+      appveyor_repo_tag: true
+      nodejs_version: "10"

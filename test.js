@@ -43,5 +43,5 @@ function use(bufferUtil) {
   };
 }
 
-describe('bindings', use(require('bindings')('bufferutil')));
+describe('bindings', use(require('node-gyp-build')(__dirname)));
 describe('fallback', use(require('./fallback')));
