@@ -1,9 +1,3 @@
-/*!
- * bufferutil: WebSocket buffer utils
- * Copyright(c) 2015 Einar Otto Stangvik <einaros@gmail.com>
- * MIT Licensed
- */
-
 'use strict';
 
 /**
