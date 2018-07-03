@@ -7,3 +7,16 @@ node_js:
 os:
   - linux
   - osx
+before_deploy:
+  - ARCHIVE_NAME="${TRAVIS_TAG:-latest}-$TRAVIS_OS_NAME-$(uname -m).tar"
+  - npm run prebuild
+  - tar --create --verbose --file="$ARCHIVE_NAME" --directory "$TRAVIS_BUILD_DIR/prebuilds" .
+deploy:
+  provider: releases
+  api_key:
+    secure: OzQWRAFAR+oJ5uSFn2WwCun5RJDD5HQnPhXdJNj5ErpBy0CmiweF7YwnDhOywncw9Rz+iQEfg4MUCsnSkD0u5LRKmwvED/Y/ddol1VQTBmWREeQqCuGLr/DoD2nEnYoLIZWlIbqSEO3TtDaCuh818XqZhcfHms6jEMyF5WuKD/c=
+  file: "$ARCHIVE_NAME"
+  skip_cleanup: true
+  on:
+    tags: true
+    node: "10"
