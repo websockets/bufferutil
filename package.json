@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/websockets/bufferutil",
   "dependencies": {
-    "node-gyp-build": "~3.5.0"
+    "node-gyp-build": "~3.6.0"
   },
   "devDependencies": {
     "mocha": "~5.2.0",
