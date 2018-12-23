@@ -1,3 +1,4 @@
+#define NAPI_VERSION 1
 #include <assert.h>
 #include <node_api.h>
 
