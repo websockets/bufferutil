@@ -1,4 +1,4 @@
 build/
+test/
 appveyor.yml
-test.js
 .*

@@ -1,6 +1,7 @@
 'use strict';
 
-const assert = require('assert');
+const { deepStrictEqual } = require('assert');
+const { join } = require('path');
 
 function use(bufferUtil) {
   return function () {
@@ -10,7 +11,7 @@ function use(bufferUtil) {
 
       bufferUtil.mask(buf, mask, buf, 0, buf.length);
 
-      assert.deepStrictEqual(
+      deepStrictEqual(
         buf,
         Buffer.from([0x24, 0x16, 0x96, 0xfd, 0x76, 0x0b, 0xc7, 0xbb])
       );
@@ -23,7 +24,7 @@ function use(bufferUtil) {
 
       bufferUtil.mask(src, mask, dest, 2, src.length);
 
-      assert.deepStrictEqual(
+      deepStrictEqual(
         dest,
         Buffer.from([0x00, 0x00, 0x24, 0x16, 0x96, 0xfd, 0x76, 0x0b, 0xc7, 0xbb])
       );
@@ -35,7 +36,7 @@ function use(bufferUtil) {
 
       bufferUtil.unmask(buf, mask);
 
-      assert.deepStrictEqual(
+      deepStrictEqual(
         buf,
         Buffer.from([0x6c, 0x3c, 0x58, 0xd9, 0x3e, 0x21, 0x09, 0x9f])
       );
@@ -43,5 +44,5 @@ function use(bufferUtil) {
   };
 }
 
-describe('bindings', use(require('node-gyp-build')(__dirname)));
-describe('fallback', use(require('./fallback')));
+describe('bindings', use(require('node-gyp-build')(join(__dirname, '..'))));
+describe('fallback', use(require('../fallback')));
