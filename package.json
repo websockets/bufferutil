@@ -25,7 +25,7 @@
     "node-gyp-build": "~4.2.0"
   },
   "devDependencies": {
-    "mocha": "~7.0.1",
+    "mocha": "~7.1.0",
     "prebuildify": "~3.0.0"
   }
 }
