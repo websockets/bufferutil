@@ -26,6 +26,6 @@
   },
   "devDependencies": {
     "mocha": "~7.1.0",
-    "prebuildify": "~3.0.0"
+    "prebuildify": "~4.0.0"
   }
 }
