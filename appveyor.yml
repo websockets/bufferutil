@@ -18,7 +18,7 @@ test_script:
   - npm --version
   - npm test
 after_test:
-  - ps: If ($env:nodejs_version -eq "12") { npm run prebuild }
+  - ps: If ($env:nodejs_version -eq "14") { npm run prebuild }
   - ps: $env:ARTIFACT_NAME_PREFIX = if (Test-Path env:APPVEYOR_REPO_TAG_NAME) { $env:APPVEYOR_REPO_TAG_NAME } else { 'latest' }
 artifacts:
   - path: prebuilds
@@ -30,4 +30,4 @@ deploy:
       secure: CkWRNlzH+wmCa3+TRydWfvmSH7tevR81aAypEhXTR9ka5q0Ja8lAIPDwtPb+Ux9l
     on:
       appveyor_repo_tag: true
-      nodejs_version: "12"
+      nodejs_version: "14"
