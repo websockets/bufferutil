@@ -1,7 +1,7 @@
 # bufferutil
 
 [![Version npm](https://img.shields.io/npm/v/bufferutil.svg)](https://www.npmjs.com/package/bufferutil)
-[![Linux/macOS Build](https://travis-ci.org/websockets/bufferutil.svg?branch=master)](https://travis-ci.org/websockets/bufferutil)
+[![Linux/macOS Build](https://travis-ci.com/websockets/bufferutil.svg?branch=master)](https://travis-ci.com/websockets/bufferutil)
 [![Windows Build](https://ci.appveyor.com/api/projects/status/github/websockets/bufferutil?branch=master&svg=true)](https://ci.appveyor.com/project/lpinca/bufferutil)
 
 `bufferutil` is what makes `ws` fast. It provides some utilities to efficiently
