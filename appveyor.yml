@@ -27,7 +27,7 @@ deploy:
   - provider: GitHub
     artifact: /.*\.zip/
     auth_token:
-      secure: CkWRNlzH+wmCa3+TRydWfvmSH7tevR81aAypEhXTR9ka5q0Ja8lAIPDwtPb+Ux9l
+      secure: hU+EdxPa5CzNrTpFfcx3DoA8ja+xfRq56JD0sEpt5f0ctd3Az8WSI9h+MgRXjlms
     on:
       appveyor_repo_tag: true
       nodejs_version: "14"
