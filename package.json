@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "install": "node-gyp-build",
-    "prebuild": "prebuildify --napi",
+    "prebuild": "prebuildify --napi --strip",
+    "prebuild-linux-arm": "prebuildify-cross -i linux-armv6 -i linux-armv7 --napi --strip",
     "test": "mocha"
   },
   "repository": {
@@ -26,6 +27,8 @@
   },
   "devDependencies": {
     "mocha": "^8.0.1",
-    "prebuildify": "^4.0.0"
+    "node-gyp": "^7.1.2",
+    "prebuildify": "^4.0.0",
+    "prebuildify-cross": "^4.0.0"
   }
 }
