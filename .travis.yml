@@ -28,16 +28,26 @@ jobs:
         - TEST=1
         - BUILD_NAME=darwin-x64
     - os: linux
-      node_js: 14
+      node_js: 10
+      arch: arm64
       env:
-        - BUILD_NAME=linux-arm
-        - BUILD_SCRIPT=prebuild-linux-arm
-      if: tag is present
+        - TEST=1
+    - os: linux
+      node_js: 12
+      arch: arm64
+      env:
+        - TEST=1
     - os: linux
       node_js: 14
       arch: arm64
       env:
+        - TEST=1
         - BUILD_NAME=linux-arm64
+    - os: linux
+      node_js: 14
+      env:
+        - BUILD_NAME=linux-arm
+        - BUILD_SCRIPT=prebuild-linux-arm
       if: tag is present
 script:
   - if [ -n "$TEST" ]; then npm run test; fi
