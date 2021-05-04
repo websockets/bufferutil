@@ -6,7 +6,8 @@
   "scripts": {
     "install": "node-gyp-build",
     "prebuild": "prebuildify --napi --strip",
-    "prebuild-linux-arm": "prebuildify-cross -i linux-armv6 -i linux-armv7 --napi --strip",
+    "prebuild-ia32": "prebuildify --arch=ia32 --napi --strip",
+    "prebuild-linux-arm": "prebuildify-cross -i linux-armv6 -i linux-armv7 -i linux-arm64 --napi --strip",
     "test": "mocha"
   },
   "repository": {

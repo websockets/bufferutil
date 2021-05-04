@@ -1,8 +1,8 @@
 # bufferutil
 
 [![Version npm](https://img.shields.io/npm/v/bufferutil.svg)](https://www.npmjs.com/package/bufferutil)
-[![Linux/macOS Build](https://travis-ci.com/websockets/bufferutil.svg?branch=master)](https://travis-ci.com/websockets/bufferutil)
-[![Windows Build](https://ci.appveyor.com/api/projects/status/github/websockets/bufferutil?branch=master&svg=true)](https://ci.appveyor.com/project/lpinca/bufferutil)
+[![Linux/macOS/Windows x64 Build](https://img.shields.io/github/workflow/status/websockets/bufferutil/CI/master?label=build)](https://github.com/websockets/bufferutil/actions?query=workflow%3ACI+branch%3Amaster)
+[![Windows x86 Build](https://ci.appveyor.com/api/projects/status/github/websockets/bufferutil?branch=master&svg=true)](https://ci.appveyor.com/project/lpinca/bufferutil)
 
 `bufferutil` is what makes `ws` fast. It provides some utilities to efficiently
 perform some operations such as masking and unmasking the data payload of
