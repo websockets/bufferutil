@@ -12,6 +12,7 @@ jobs:
         node:
           - 12
           - 14
+          - 16
         os:
           - macOS-latest
           - ubuntu-16.04
