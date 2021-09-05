@@ -44,6 +44,7 @@ jobs:
         with:
           name: ${{ matrix.os }}
           path: prebuilds
+          retention-days: 1
   release:
     if: startsWith(github.ref, 'refs/tags/')
     needs: test
