@@ -9,6 +9,7 @@
   "scripts": {
     "install": "node-gyp-build",
     "prebuild": "prebuildify --napi --strip",
+    "prebuild-darwin-x64+arm64": "prebuildify --arch x64+arm64 --napi --strip",
     "prebuild-linux-arm": "prebuildify-cross -i linux-armv6 -i linux-armv7 -i linux-arm64 --napi --strip",
     "test": "mocha"
   },
