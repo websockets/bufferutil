@@ -31,7 +31,6 @@
   "devDependencies": {
     "mocha": "^9.0.3",
     "node-gyp": "^7.1.2",
-    "prebuildify": "^4.0.0",
-    "prebuildify-cross": "^4.0.0"
+    "prebuildify": "^4.0.0"
   }
 }
