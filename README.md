@@ -1,7 +1,7 @@
 # bufferutil
 
-[![Version npm](https://img.shields.io/npm/v/bufferutil.svg)](https://www.npmjs.com/package/bufferutil)
-[![Linux/macOS/Windows Build](https://img.shields.io/github/workflow/status/websockets/bufferutil/CI/master?label=build)](https://github.com/websockets/bufferutil/actions?query=workflow%3ACI+branch%3Amaster)
+[![Version npm](https://img.shields.io/npm/v/bufferutil.svg?logo=npm)](https://www.npmjs.com/package/bufferutil)
+[![Linux/macOS/Windows Build](https://img.shields.io/github/workflow/status/websockets/bufferutil/CI/master?label=build&logo=github)](https://github.com/websockets/bufferutil/actions?query=workflow%3ACI+branch%3Amaster)
 
 `bufferutil` is what makes `ws` fast. It provides some utilities to efficiently
 perform some operations such as masking and unmasking the data payload of
@@ -14,7 +14,8 @@ npm install bufferutil --save-optional
 ```
 
 The `--save-optional` flag tells npm to save the package in your package.json
-under the [`optionalDependencies`](https://docs.npmjs.com/files/package.json#optionaldependencies)
+under the
+[`optionalDependencies`](https://docs.npmjs.com/files/package.json#optionaldependencies)
 key.
 
 ## API
