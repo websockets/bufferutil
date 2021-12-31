@@ -18,12 +18,12 @@ jobs:
           - 16
           - 17
         os:
-          - macos-11
+          - macos-latest
           - ubuntu-18.04
           - windows-latest
         exclude:
           - arch: x86
-            os: macos-11
+            os: macos-latest
           - arch: x86
             os: ubuntu-18.04
     steps:
@@ -36,11 +36,11 @@ jobs:
       - run: npm test
       - run: npm run prebuild
         if:
-          matrix.node == 14 && matrix.os != 'macos-11' && startsWith(github.ref,
+          matrix.node == 14 && matrix.os != 'macos-latest' && startsWith(github.ref,
           'refs/tags/')
       - run: npm run prebuild-darwin-x64+arm64
         if:
-          matrix.node == 14 && matrix.os == 'macos-11' && startsWith(github.ref,
+          matrix.node == 14 && matrix.os == 'macos-latest' && startsWith(github.ref,
           'refs/tags/')
       - uses: actions/upload-artifact@v2
         if: matrix.node == 14 && startsWith(github.ref, 'refs/tags/')
@@ -61,7 +61,7 @@ jobs:
         id: get_version
       - run:
           tar -cvf "${{ steps.get_version.outputs.version
-          }}-darwin-x64+arm64.tar" -C "prebuilds/macos-11" .
+          }}-darwin-x64+arm64.tar" -C "prebuilds/macos-latest" .
       - run:
           tar -cvf "${{ steps.get_version.outputs.version }}-linux-x64.tar" -C
           "prebuilds/ubuntu-18.04" linux-x64
