@@ -36,12 +36,12 @@ jobs:
       - run: npm test
       - run: npm run prebuild
         if:
-          matrix.node == 14 && matrix.os != 'macos-latest' && startsWith(github.ref,
-          'refs/tags/')
+          matrix.node == 14 && matrix.os != 'macos-latest' &&
+          startsWith(github.ref, 'refs/tags/')
       - run: npm run prebuild-darwin-x64+arm64
         if:
-          matrix.node == 14 && matrix.os == 'macos-latest' && startsWith(github.ref,
-          'refs/tags/')
+          matrix.node == 14 && matrix.os == 'macos-latest' &&
+          startsWith(github.ref, 'refs/tags/')
       - uses: actions/upload-artifact@v2
         if: matrix.node == 14 && startsWith(github.ref, 'refs/tags/')
         with:
