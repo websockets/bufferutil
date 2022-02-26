@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "mocha": "^9.0.3",
-    "node-gyp": "^7.1.2",
+    "node-gyp": "^8.4.1",
     "prebuildify": "^5.0.0"
   }
 }
