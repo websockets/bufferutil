@@ -99,5 +99,4 @@ jobs:
       - uses: softprops/action-gh-release@v1
         with:
           files: ${{ steps.get_version.outputs.version }}-*.tar
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
