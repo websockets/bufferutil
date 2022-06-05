@@ -4,6 +4,8 @@ on:
   - push
   - pull_request
 
+permissions: {}
+
 jobs:
   test:
     runs-on: ${{ matrix.os }}
@@ -51,6 +53,8 @@ jobs:
   release:
     if: startsWith(github.ref, 'refs/tags/')
     needs: test
+    permissions:
+      contents: write # Needed for softprops/action-gh-release.
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
