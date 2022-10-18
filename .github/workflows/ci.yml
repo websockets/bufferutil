@@ -82,7 +82,7 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           path: prebuilds
-      - run: echo ::set-output name=version::$(git describe --tags)
+      - run: echo "version=$(git describe --tags)" >> $GITHUB_OUTPUT
         id: get_version
       - run:
           tar -cvf "${{ steps.get_version.outputs.version
