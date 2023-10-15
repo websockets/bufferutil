@@ -50,13 +50,13 @@ jobs:
           - x86
         os:
           - macos-latest
-          - ubuntu-18.04
+          - ubuntu-20.04
           - windows-latest
         exclude:
           - arch: x86
             os: macos-latest
           - arch: x86
-            os: ubuntu-18.04
+            os: ubuntu-20.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
@@ -90,7 +90,7 @@ jobs:
           }}-darwin-x64+arm64.tar" -C "prebuilds/macos-latest" .
       - run:
           tar -cvf "${{ steps.get_version.outputs.version }}-linux-x64.tar" -C
-          "prebuilds/ubuntu-18.04" linux-x64
+          "prebuilds/ubuntu-20.04" linux-x64
       - run:
           tar -cvf "${{ steps.get_version.outputs.version }}-win32-ia32.tar" -C
           "prebuilds/windows-latest" win32-ia32
