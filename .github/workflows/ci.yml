@@ -15,7 +15,6 @@ jobs:
           - x64
           - x86
         node:
-          - 14
           - 16
           - 18
           - 20
@@ -61,7 +60,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 14
+          node-version: 16
           architecture: ${{ matrix.arch }}
       - run: npm install
       - run: npm run prebuild
