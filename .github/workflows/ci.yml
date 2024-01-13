@@ -69,7 +69,7 @@ jobs:
         if: matrix.os == 'macos-latest'
       - uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.os }}
+          name: ${{ matrix.os }}-${{ matrix.arch }}
           path: prebuilds
           retention-days: 1
   release:
@@ -86,16 +86,17 @@ jobs:
         id: get_version
       - run:
           tar -cvf "${{ steps.get_version.outputs.version
-          }}-darwin-x64+arm64.tar" -C "prebuilds/macos-latest" .
+          }}-darwin-x64+arm64.tar" -C "prebuilds/macos-latest-x64"
+          darwin-x64+arm64
       - run:
           tar -cvf "${{ steps.get_version.outputs.version }}-linux-x64.tar" -C
-          "prebuilds/ubuntu-20.04" linux-x64
+          "prebuilds/ubuntu-20.04-x64" linux-x64
       - run:
           tar -cvf "${{ steps.get_version.outputs.version }}-win32-ia32.tar" -C
-          "prebuilds/windows-latest" win32-ia32
+          "prebuilds/windows-latest-x86" win32-ia32
       - run:
           tar -cvf "${{ steps.get_version.outputs.version }}-win32-x64.tar" -C
-          "prebuilds/windows-latest" win32-x64
+          "prebuilds/windows-latest-x64" win32-x64
       - uses: softprops/action-gh-release@v1
         with:
           files: ${{ steps.get_version.outputs.version }}-*.tar
