@@ -20,7 +20,8 @@ key.
 
 ## API
 
-The module exports two functions.
+The module exports two functions. To maximize performance, parameters are not
+validated. It is the caller's responsibility to ensure that they are correct.
 
 ### `bufferUtil.mask(source, mask, output, offset, length)`
 
