@@ -97,7 +97,7 @@ jobs:
       - run:
           tar -cvf "${{ steps.get_version.outputs.version }}-win32-x64.tar" -C
           "prebuilds/windows-latest-x64" win32-x64
-      - uses: softprops/action-gh-release@v1
+      - uses: softprops/action-gh-release@v2
         with:
           files: ${{ steps.get_version.outputs.version }}-*.tar
           token: ${{ secrets.GITHUB_TOKEN }}
