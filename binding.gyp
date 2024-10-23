@@ -20,8 +20,8 @@
             # Use Perl v-strings to compare versions.
             ['clang_version and <!(perl -e \'print <(clang_version) cmp 12.0.0\')==1', {
               'xcode_settings': {
-                'OTHER_CFLAGS': ['-arch arm64'],
-                'OTHER_LDFLAGS': ['-arch arm64']
+                'OTHER_CFLAGS': ['-arch x86_64', '-arch arm64'],
+                'OTHER_LDFLAGS': ['-arch x86_64', '-arch arm64']
               }
             }]
           ]
