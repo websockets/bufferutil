@@ -15,7 +15,6 @@ jobs:
           - x64
           - x86
         node:
-          - 18
           - 20
           - 22
         os:
@@ -27,9 +26,6 @@ jobs:
             os: macos-latest
           - arch: x86
             os: ubuntu-latest
-          - arch: x86
-            node: 18
-            os: windows-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
