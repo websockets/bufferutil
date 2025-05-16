@@ -13,19 +13,21 @@ jobs:
       matrix:
         arch:
           - x64
-          - x86
         node:
           - 20
           - 22
+          - 24
         os:
           - macos-latest
           - ubuntu-latest
           - windows-latest
-        exclude:
+        include:
           - arch: x86
-            os: macos-latest
+            node: 20
+            os: windows-latest
           - arch: x86
-            os: ubuntu-latest
+            node: 22
+            os: windows-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
