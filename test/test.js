@@ -1,7 +1,11 @@
 'use strict';
 
 const { deepStrictEqual } = require('assert');
+const { randomBytes } = require('crypto');
 const { join } = require('path');
+
+const native = require('node-gyp-build')(join(__dirname, '..'));
+const fallback = require('../fallback');
 
 function use(bufferUtil) {
   return function () {
@@ -44,5 +48,38 @@ function use(bufferUtil) {
   };
 }
 
-describe('bindings', use(require('node-gyp-build')(join(__dirname, '..'))));
-describe('fallback', use(require('../fallback')));
+describe('bindings', use(native));
+describe('fallback', use(fallback));
+
+describe('bindings match fallback', () => {
+  const sizes = [1, 127, 128, 200, 1024, 10 * 1024 - 1, 10 * 1024]
+  const offsets = [0, 1, 10, 16, 128]
+
+  it('masks', function () {
+    for (const size of sizes) {
+      for (const offset of offsets) {
+        const src = randomBytes(size);
+        const mask = randomBytes(4);
+        const dest = randomBytes(size + offset);
+        const destFallback = Buffer.from(dest);
+
+        native.mask(src, mask, dest, offset, size);
+        fallback.mask(src, mask, destFallback, offset, size);
+
+        deepStrictEqual(dest, destFallback);
+      }
+    }
+  });
+
+  it('unmasks', function () {
+    for (const size of sizes) {
+      const buf = randomBytes(size);
+      const mask = randomBytes(4);
+
+      deepStrictEqual(
+        native.unmask(buf, mask),
+        fallback.unmask(buf, mask)
+      );
+    }
+  });
+})
