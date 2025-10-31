@@ -73,13 +73,14 @@ describe('bindings match fallback', () => {
 
   it('unmasks', function () {
     for (const size of sizes) {
-      const buf = randomBytes(size);
+      const buf1 = randomBytes(size);
+      const buf2 = Buffer.from(buf1);
       const mask = randomBytes(4);
 
-      deepStrictEqual(
-        native.unmask(buf, mask),
-        fallback.unmask(buf, mask)
-      );
+      native.unmask(buf1, mask);
+      fallback.unmask(buf2, mask);
+
+      deepStrictEqual(buf1, buf2);
     }
   });
 })
