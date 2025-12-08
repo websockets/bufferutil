@@ -46,12 +46,12 @@ jobs:
           - x64
           - x86
         os:
-          - macos-latest
+          - macos-15-intel
           - ubuntu-22.04
           - windows-latest
         exclude:
           - arch: x86
-            os: macos-latest
+            os: macos-15-intel
           - arch: x86
             os: ubuntu-22.04
     steps:
@@ -62,9 +62,9 @@ jobs:
           architecture: ${{ matrix.arch }}
       - run: npm install
       - run: npm run prebuild
-        if: matrix.os != 'macos-latest'
+        if: matrix.os != 'macos-15-intel'
       - run: npm run prebuild-darwin-x64+arm64
-        if: matrix.os == 'macos-latest'
+        if: matrix.os == 'macos-15-intel'
       - uses: actions/upload-artifact@v5
         with:
           name: ${{ matrix.os }}-${{ matrix.arch }}
@@ -84,7 +84,7 @@ jobs:
         id: get_version
       - run:
           tar -cvf "${{ steps.get_version.outputs.version
-          }}-darwin-x64+arm64.tar" -C "prebuilds/macos-latest-x64"
+          }}-darwin-x64+arm64.tar" -C "prebuilds/macos-15-intel-x64"
           darwin-x64+arm64
       - run:
           tar -cvf "${{ steps.get_version.outputs.version }}-linux-x64.tar" -C
