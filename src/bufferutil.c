@@ -59,24 +59,23 @@ napi_value Mask(napi_env env, napi_callback_info info) {
   // Apply 64 bit mask in 8 byte chunks.
   //
   uint32_t loop = length / 8;
-  uint64_t *pMask8 = (uint64_t *)maskAlignedArray;
+  uint64_t mask8 = ((uint64_t *)maskAlignedArray)[0];
+  uint64_t *pFrom8 = (uint64_t *)source;
+  uint64_t *pTo8 = (uint64_t *)destination;
 
-  while (loop--) {
-    uint64_t *pFrom8 = (uint64_t *)source;
-    uint64_t *pTo8 = (uint64_t *)destination;
-    *pTo8 = *pFrom8 ^ *pMask8;
-    source += 8;
-    destination += 8;
+  for (uint32_t i = 0; i < loop; i++) {
+    pTo8[i] = pFrom8[i] ^ mask8;
   }
 
   //
   // Apply mask to remaining data.
   //
-  uint8_t *pmaskAlignedArray = maskAlignedArray;
-
   length %= 8;
-  while (length--) {
-    *destination++ = *source++ ^ *pmaskAlignedArray++;
+  source += 8 * loop;
+  destination += 8 * loop;
+
+  for (uint32_t i = 0; i < length; i++) {
+    destination[i] = source[i] ^ maskAlignedArray[i];
   }
 
   return NULL;
@@ -91,8 +90,8 @@ napi_value Unmask(napi_env env, napi_callback_info info) {
   assert(status == napi_ok);
 
   uint8_t *source;
-  size_t length;
   uint8_t *mask;
+  size_t length;
 
   status = napi_get_buffer_info(env, argv[0], (void **)&source, &length);
   assert(status == napi_ok);
@@ -127,22 +126,21 @@ napi_value Unmask(napi_env env, napi_callback_info info) {
   // Apply 64 bit mask in 8 byte chunks.
   //
   uint32_t loop = length / 8;
-  uint64_t *pMask8 = (uint64_t *)maskAlignedArray;
+  uint64_t mask8 = ((uint64_t *)maskAlignedArray)[0];
+  uint64_t *pSource8 = (uint64_t *)source;
 
-  while (loop--) {
-    uint64_t *pSource8 = (uint64_t *)source;
-    *pSource8 ^= *pMask8;
-    source += 8;
+  for (uint32_t i = 0; i < loop; i++) {
+    pSource8[i] ^= mask8;
   }
 
   //
   // Apply mask to remaining data.
   //
-  uint8_t *pmaskAlignedArray = maskAlignedArray;
-
   length %= 8;
-  while (length--) {
-    *source++ ^= *pmaskAlignedArray++;
+  source += 8 * loop;
+
+  for (uint32_t i = 0; i < length; i++) {
+    source[i] ^= maskAlignedArray[i];
   }
 
   return NULL;
