@@ -62,15 +62,18 @@ napi_value Mask(napi_env env, napi_callback_info info) {
   uint64_t mask8 = ((uint64_t *)maskAlignedArray)[0];
   uint64_t *pFrom8 = (uint64_t *)source;
   uint64_t *pTo8 = (uint64_t *)destination;
-  for (uint32_t i = 0; i < loop; i++) pTo8[i] = pFrom8[i] ^ mask8;
-  source += 8 * loop;
-  destination += 8 * loop;
+
+  for (uint32_t i = 0; i < loop; i++) {
+    pTo8[i] = pFrom8[i] ^ mask8;
+  }
 
   //
   // Apply mask to remaining data.
   //
-
   length %= 8;
+  source += 8 * loop;
+  destination += 8 * loop;
+
   for (uint32_t i = 0; i < length; i++) {
     destination[i] = source[i] ^ maskAlignedArray[i];
   }
@@ -124,16 +127,18 @@ napi_value Unmask(napi_env env, napi_callback_info info) {
   //
   uint32_t loop = length / 8;
   uint64_t mask8 = ((uint64_t *)maskAlignedArray)[0];
-
   uint64_t *pSource8 = (uint64_t *)source;
-  for (uint32_t i = 0; i < loop; i++) pSource8[i] ^= mask8;
-  source += 8 * loop;
+
+  for (uint32_t i = 0; i < loop; i++) {
+    pSource8[i] ^= mask8;
+  }
 
   //
   // Apply mask to remaining data.
   //
-
   length %= 8;
+  source += 8 * loop;
+
   for (uint32_t i = 0; i < length; i++) {
     source[i] ^= maskAlignedArray[i];
   }
