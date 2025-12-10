@@ -13,14 +13,25 @@ jobs:
       matrix:
         arch:
           - x64
+          - arm64
         node:
           - 20
           - 22
           - 24
         os:
           - macos-latest
+          - macos-15-intel
           - ubuntu-latest
           - windows-latest
+        exclude:
+          - arch: arm64
+            os: macos-15-intel
+          - arch: arm64
+            os: ubuntu-latest
+          - arch: arm64
+            os: windows-latest
+          - arch: x64
+            os: macos-latest
         include:
           - arch: x86
             node: 20
@@ -44,16 +55,15 @@ jobs:
       matrix:
         arch:
           - x64
-          - x86
         os:
           - macos-15-intel
           - ubuntu-22.04
           - windows-latest
-        exclude:
+        include:
           - arch: x86
-            os: macos-15-intel
-          - arch: x86
-            os: ubuntu-22.04
+            os: windows-latest
+          - arch: arm64
+            os: macos-latest
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6
@@ -62,9 +72,6 @@ jobs:
           architecture: ${{ matrix.arch }}
       - run: npm install
       - run: npm run prebuild
-        if: matrix.os != 'macos-15-intel'
-      - run: npm run prebuild-darwin-x64+arm64
-        if: matrix.os == 'macos-15-intel'
       - uses: actions/upload-artifact@v5
         with:
           name: ${{ matrix.os }}-${{ matrix.arch }}
@@ -83,9 +90,11 @@ jobs:
       - run: echo "version=$(git describe --tags)" >> $GITHUB_OUTPUT
         id: get_version
       - run:
-          tar -cvf "${{ steps.get_version.outputs.version
-          }}-darwin-x64+arm64.tar" -C "prebuilds/macos-15-intel-x64"
-          darwin-x64+arm64
+          tar -cvf "${{ steps.get_version.outputs.version }}-darwin-x64.tar" -C
+          "prebuilds/macos-15-intel-x64" darwin-x64
+      - run:
+          tar -cvf "${{ steps.get_version.outputs.version }}-darwin-arm64.tar" -C
+          "prebuilds/macos-latest-arm64" darwin-arm64
       - run:
           tar -cvf "${{ steps.get_version.outputs.version }}-linux-x64.tar" -C
           "prebuilds/ubuntu-22.04-x64" linux-x64
