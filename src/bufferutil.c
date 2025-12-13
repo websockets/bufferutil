@@ -13,8 +13,8 @@ napi_value Mask(napi_env env, napi_callback_info info) {
   uint8_t *source;
   uint8_t *mask;
   uint8_t *destination;
-  uint32_t offset;
-  uint32_t length;
+  int64_t offset;
+  int64_t length;
 
   status = napi_get_buffer_info(env, argv[0], (void **)&source, NULL);
   assert(status == napi_ok);
@@ -25,19 +25,19 @@ napi_value Mask(napi_env env, napi_callback_info info) {
   status = napi_get_buffer_info(env, argv[2], (void **)&destination, NULL);
   assert(status == napi_ok);
 
-  status = napi_get_value_uint32(env, argv[3], &offset);
+  status = napi_get_value_int64(env, argv[3], &offset);
   assert(status == napi_ok);
 
-  status = napi_get_value_uint32(env, argv[4], &length);
+  status = napi_get_value_int64(env, argv[4], &length);
   assert(status == napi_ok);
 
   destination += offset;
-  uint32_t index = 0;
+  uint8_t index = 0;
 
   //
   // Alignment preamble.
   //
-  while (index < length && ((size_t)source % 8)) {
+  while (index < length && (size_t)source % 8) {
     *destination++ = *source++ ^ mask[index % 4];
     index++;
   }
@@ -58,12 +58,12 @@ napi_value Mask(napi_env env, napi_callback_info info) {
   //
   // Apply 64 bit mask in 8 byte chunks.
   //
-  uint32_t loop = length / 8;
+  int64_t loop = length / 8;
   uint64_t mask8 = ((uint64_t *)maskAlignedArray)[0];
   uint64_t *pFrom8 = (uint64_t *)source;
   uint64_t *pTo8 = (uint64_t *)destination;
 
-  for (uint32_t i = 0; i < loop; i++) {
+  for (int64_t i = 0; i < loop; i++) {
     pTo8[i] = pFrom8[i] ^ mask8;
   }
 
@@ -74,7 +74,7 @@ napi_value Mask(napi_env env, napi_callback_info info) {
   source += 8 * loop;
   destination += 8 * loop;
 
-  for (uint32_t i = 0; i < length; i++) {
+  for (uint8_t i = 0; i < length; i++) {
     destination[i] = source[i] ^ maskAlignedArray[i];
   }
 
@@ -99,12 +99,12 @@ napi_value Unmask(napi_env env, napi_callback_info info) {
   status = napi_get_buffer_info(env, argv[1], (void **)&mask, NULL);
   assert(status == napi_ok);
 
-  uint32_t index = 0;
+  uint8_t index = 0;
 
   //
   // Alignment preamble.
   //
-  while (index < length && ((size_t)source % 8)) {
+  while (index < length && (size_t)source % 8) {
     *source++ ^= mask[index % 4];
     index++;
   }
@@ -125,11 +125,11 @@ napi_value Unmask(napi_env env, napi_callback_info info) {
   //
   // Apply 64 bit mask in 8 byte chunks.
   //
-  uint32_t loop = length / 8;
+  size_t loop = length / 8;
   uint64_t mask8 = ((uint64_t *)maskAlignedArray)[0];
   uint64_t *pSource8 = (uint64_t *)source;
 
-  for (uint32_t i = 0; i < loop; i++) {
+  for (size_t i = 0; i < loop; i++) {
     pSource8[i] ^= mask8;
   }
 
@@ -139,7 +139,7 @@ napi_value Unmask(napi_env env, napi_callback_info info) {
   length %= 8;
   source += 8 * loop;
 
-  for (uint32_t i = 0; i < length; i++) {
+  for (uint8_t i = 0; i < length; i++) {
     source[i] ^= maskAlignedArray[i];
   }
 
