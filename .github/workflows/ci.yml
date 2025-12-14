@@ -93,8 +93,8 @@ jobs:
           tar -cvf "${{ steps.get_version.outputs.version }}-darwin-x64.tar" -C
           "prebuilds/macos-15-intel-x64" darwin-x64
       - run:
-          tar -cvf "${{ steps.get_version.outputs.version }}-darwin-arm64.tar" -C
-          "prebuilds/macos-latest-arm64" darwin-arm64
+          tar -cvf "${{ steps.get_version.outputs.version }}-darwin-arm64.tar"
+          -C "prebuilds/macos-latest-arm64" darwin-arm64
       - run:
           tar -cvf "${{ steps.get_version.outputs.version }}-linux-x64.tar" -C
           "prebuilds/ubuntu-22.04-x64" linux-x64
